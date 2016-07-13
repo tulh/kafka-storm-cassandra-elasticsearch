@@ -9,6 +9,8 @@ import java.util.UUID;
  */
 public class CassandraClient
 {
+    private final static String USERNAME = "cassandra";
+    private final static String PASSWORD = "cassandra";
     private Cluster cluster;
     private Session session;
 
@@ -16,6 +18,7 @@ public class CassandraClient
     {
         cluster = Cluster.builder()
                 .addContactPoint(node)
+                .withCredentials(USERNAME, PASSWORD)
                 .build();
         session = cluster.connect();
         Metadata metadata = cluster.getMetadata();
@@ -69,6 +72,29 @@ public class CassandraClient
                         "'Bye Bye Blackbird'," +
                         "'Joséphine Baker'" +
                         ");");
+        session.execute(
+                "INSERT INTO simplex.songs (id, title, album, artist, tags) " +
+                        "VALUES (" +
+                        "126716f7-2e54-4715-9f00-91dcbea6cf50," +
+                        "'Rock'," +
+                        "'Bye Bye Beautiful'," +
+                        "'NightWish'," +
+                        "{'Rock', '2013'})" +
+                        ";");
+        session.execute(
+                "INSERT INTO simplex.playlists (id, song_id, title, album, artist) " +
+                        "VALUES (" +
+                        "12c9ccb7-6221-4ccb-8387-f22b6a1b354d," +
+                        "126716f7-2e54-4715-9f00-91dcbea6cf50," +
+                        "'Rock'," +
+                        "'Bye Bye Beautiful'," +
+                        "'NightWish'" +
+                        ");");
+    }
+
+    public void deleteData()
+    {
+        session.execute("delete from simplex.songs where id=126716f7-2e54-4715-9f00-91dcbea6cf50;");
     }
 
     public void boundStatement()
@@ -130,12 +156,20 @@ public class CassandraClient
     public static void main(String args[])
     {
         CassandraClient client = new CassandraClient();
-        client.connect("172.16.10.88");
+        client.connect("172.16.10.124");
 //        client.createSchema();
-//        client.loadData();
+        client.loadData();
+        client.boundStatement();
         client.querySchema();
-//        client.boundStatement();
+        client.deleteData();
         client.close();
+
+        client = new CassandraClient();
+        client.connect("172.16.10.123");
+        client.querySchema();
+        client.close();
+
+
     }
 
 }
