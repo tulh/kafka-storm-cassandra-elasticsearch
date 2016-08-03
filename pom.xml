@@ -19,5 +19,58 @@
             <artifactId>cassandra-driver-core</artifactId>
             <version>3.0.0</version>
         </dependency>
+
+        <!-- Kundera Cassandra -->
+        <dependency>
+            <groupId>com.impetus.kundera.core</groupId>
+            <artifactId>kundera-core</artifactId>
+            <version>3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.impetus.kundera.client</groupId>
+            <artifactId>kundera-cassandra</artifactId>
+            <version>3.5</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>0.10.0.0</version>
+        </dependency>
+
     </dependencies>
+
+
+    <!--<repositories>-->
+    <!--<repository>-->
+    <!--<id>sonatype-nexus</id>-->
+    <!--<name>Kundera Public Repository</name>-->
+    <!--<url>https://oss.sonatype.org/content/repositories/releases</url>-->
+    <!--<releases>-->
+    <!--<enabled>true</enabled>-->
+    <!--</releases>-->
+    <!--<snapshots>-->
+    <!--<enabled>false</enabled>-->
+    <!--</snapshots>-->
+    <!--</repository>-->
+    <!--<repository>-->
+    <!--<id>riptano</id>-->
+    <!--<name>riptano</name>-->
+    <!--<url>http://mvn.riptano.com/content/repositories/public</url>-->
+    <!--</repository>-->
+    <!--</repositories>-->
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

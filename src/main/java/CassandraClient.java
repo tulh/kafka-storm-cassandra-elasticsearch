@@ -161,11 +161,11 @@ public class CassandraClient
         client.loadData();
         client.boundStatement();
         client.querySchema();
-        client.deleteData();
         client.close();
 
         client = new CassandraClient();
         client.connect("172.16.10.123");
+        client.deleteData();
         client.querySchema();
         client.close();
 
