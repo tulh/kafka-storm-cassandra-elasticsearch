@@ -1,8 +1,11 @@
+package com.gem.hocvalam.sample;
+
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.Properties;
+import java.util.UUID;
 
 /**
  * Created by tulh on 03/08/2016.
@@ -15,7 +18,7 @@ public class WordsProducer
     {
 
         //Assign topicName to string variable
-        String topicName = "test";
+        String topicName = "hocvalam-post";
 
         // create instance for properties to access producer configs
         Properties props = new Properties();
@@ -46,12 +49,13 @@ public class WordsProducer
 
         Producer<String, String> producer = new KafkaProducer<>(props);
 
-        for (int i = 0; i < 10; i++)
+        //for (int i = 0; i < 10; i++)
+        while (true)
         {
             producer.send(new ProducerRecord<>(topicName,
-                    Integer.toString(i), Integer.toString(i)));
+                    "User ID ", UUID.randomUUID().toString()));
         }
-        System.out.println("Message sent successfully");
-        producer.close();
+//        System.out.println("Message sent successfully");
+//        producer.close();
     }
 }

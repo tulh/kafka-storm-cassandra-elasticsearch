@@ -1,3 +1,5 @@
+package com.gem.hocvalam.sample;
+
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -13,11 +15,11 @@ public class SimpleConsumer
     public static void main(String[] args) throws Exception
     {
         //Kafka consumer configuration settings
-        String topicName = "test";
+        String topicName = "hocvalam-post";
         Properties props = new Properties();
 
         props.put("bootstrap.servers", "172.16.10.132:9092");
-        props.put("group.id", "test-consumer-gro");
+        props.put("group.id", "test-consumer-group");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
         props.put("session.timeout.ms", "30000");

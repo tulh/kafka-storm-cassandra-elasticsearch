@@ -1,3 +1,5 @@
+package com.gem.hocvalam.sample;
+
 import com.datastax.driver.core.*;
 
 import java.util.HashSet;

@@ -5,70 +5,107 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>big-data</groupId>
-    <artifactId>com.tulh.sample</artifactId>
+    <artifactId>com.gem.hocvalam</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
-    <dependencies>
-        <dependency> <!-- Spark dependency -->
-            <groupId>org.apache.spark</groupId>
-            <artifactId>spark-core_2.10</artifactId>
-            <version>1.6.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.datastax.cassandra</groupId>
-            <artifactId>cassandra-driver-core</artifactId>
-            <version>3.0.0</version>
-        </dependency>
+    <modules>
+        <module>storm-integration</module>
+        <module>sample</module>
+    </modules>
 
-        <!-- Kundera Cassandra -->
-        <dependency>
-            <groupId>com.impetus.kundera.core</groupId>
-            <artifactId>kundera-core</artifactId>
-            <version>3.5</version>
-        </dependency>
-        <dependency>
-            <groupId>com.impetus.kundera.client</groupId>
-            <artifactId>kundera-cassandra</artifactId>
-            <version>3.5</version>
-        </dependency>
+    <properties>
+        <!-- Project settings -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <service.version>1.0-SNAPSHOT</service.version>
+        <spark-core.version>1.6.2</spark-core.version>
+        <cassandra-driver-core.version>3.0.0</cassandra-driver-core.version>
+        <storm-core.version>1.0.1</storm-core.version>
+        <storm-kafka.version>1.0.1</storm-kafka.version>
+        <kafka.version>0.10.0.0</kafka.version>
+        <common-collections.version>3.2.1</common-collections.version>
+        <guava.version>16.0.1</guava.version>
+        <httpclient.version>4.3.1</httpclient.version>
+        <gson.version>2.5</gson.version>
+        <common-lang3.version>3.3.2</common-lang3.version>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
-        <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-clients</artifactId>
-            <version>0.10.0.0</version>
-        </dependency>
-
-    </dependencies>
-
-
-    <!--<repositories>-->
-    <!--<repository>-->
-    <!--<id>sonatype-nexus</id>-->
-    <!--<name>Kundera Public Repository</name>-->
-    <!--<url>https://oss.sonatype.org/content/repositories/releases</url>-->
-    <!--<releases>-->
-    <!--<enabled>true</enabled>-->
-    <!--</releases>-->
-    <!--<snapshots>-->
-    <!--<enabled>false</enabled>-->
-    <!--</snapshots>-->
-    <!--</repository>-->
-    <!--<repository>-->
-    <!--<id>riptano</id>-->
-    <!--<name>riptano</name>-->
-    <!--<url>http://mvn.riptano.com/content/repositories/public</url>-->
-    <!--</repository>-->
-    <!--</repositories>-->
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency> <!-- Spark dependency -->
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-core_2.10</artifactId>
+                <version>${spark-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.datastax.cassandra</groupId>
+                <artifactId>cassandra-driver-core</artifactId>
+                <version>${cassandra-driver-core.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.storm</groupId>
+                <artifactId>storm-core</artifactId>
+                <version>${storm-core.version}}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.storm</groupId>
+                <artifactId>storm-kafka</artifactId>
+                <version>${storm-kafka.version}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka_2.11 -->
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka_2.11</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+            <!--kafka libraries-->
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>${common-collections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <!-- Apache HTTP -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${common-lang3.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>
