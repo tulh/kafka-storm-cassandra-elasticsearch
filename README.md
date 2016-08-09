@@ -6,7 +6,7 @@ This README would normally document whatever steps are necessary to get your app
 
 * Quick summary:
 This project contains source code of the integration between apache kafka, storm and cassandra, spark. The data input came from social network hocavalam.
-* Version
+* Version:
 1.0-SNAPSHOT
 
 ### How do I get set up? ###
@@ -15,8 +15,8 @@ This project contains source code of the integration between apache kafka, storm
 * setup apache storm server (nimbus, zookeeper, storm)
 * setup apache cassandra cluster (data center contains 3-4 nodes)
 * Deployment instructions:
-to run in localmode: storm jar <jar package> <main class to execute>
-to run in production mode (distributed) storm jar <jar package> <main class to execute> args... (args[0] is name of the topology)
+1. to run in localmode: storm jar <jar package> <main class to execute>.
+2. to run in production mode (distributed) storm jar <jar package> <main class to execute> args... (args[0] is name of the topology)
 
 ### Contribution guidelines ###
 
