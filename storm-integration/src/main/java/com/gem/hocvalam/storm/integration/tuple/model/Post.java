@@ -1,4 +1,4 @@
-package com.gem.hocvalam.storm.integration;
+package com.gem.hocvalam.storm.integration.tuple.model;
 
 import com.datastax.driver.core.utils.UUIDs;
 import com.google.gson.Gson;

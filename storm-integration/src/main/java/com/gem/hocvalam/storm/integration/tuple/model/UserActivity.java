@@ -1,4 +1,4 @@
-package com.gem.hocvalam.storm.integration;
+package com.gem.hocvalam.storm.integration.tuple.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
