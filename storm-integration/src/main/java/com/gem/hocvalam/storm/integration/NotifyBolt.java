@@ -29,10 +29,11 @@ import java.util.Map;
 public class NotifyBolt extends BaseRichBolt
 {
     public static final Logger LOG = LoggerFactory.getLogger(NotifyBolt.class);
-
+    private OutputCollector collector;
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector)
     {
+        this.collector = outputCollector;
     }
 
     @Override
@@ -62,6 +63,7 @@ public class NotifyBolt extends BaseRichBolt
         {
             HttpResponse response = client.execute(request);
             HttpEntity entity = response.getEntity();
+            collector.ack(tuple);
             LOG.info("Post to socket: " + EntityUtils.toString(entity, "UTF-8"));
         }
         catch (IOException e)
