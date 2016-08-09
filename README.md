@@ -4,7 +4,7 @@ This README would normally document whatever steps are necessary to get your app
 
 ### What is this repository for? ###
 
-* Quick summary
+* Quick summary:
 This project contains source code of the integration between apache kafka, storm and cassandra, spark. The data input came from social network hocavalam.
 * Version
 1.0-SNAPSHOT
