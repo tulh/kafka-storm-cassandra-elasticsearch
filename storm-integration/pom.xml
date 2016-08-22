@@ -15,7 +15,7 @@
     <name>storm-integration</name>
 
     <properties>
-        <storm.topology>com.gem.hocvalam.storm.integration.KafkaSpoutTestTopology</storm.topology>
+        <storm.topology>com.gem.hocvalam.storm.integration.KafkaSpoutTopology</storm.topology>
     </properties>
 
 

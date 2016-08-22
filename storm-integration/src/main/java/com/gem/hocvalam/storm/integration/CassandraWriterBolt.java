@@ -46,7 +46,7 @@ public class CassandraWriterBolt extends BaseRichBolt
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer)
     {
-        declarer.declare(new Fields("name", "post_id", "channel_ids", "published_time"));
+        declarer.declare(new Fields("name", "post_id", "author_id", "content", "channel_ids", "published_time"));
     }
 
     @Override
@@ -102,7 +102,7 @@ public class CassandraWriterBolt extends BaseRichBolt
                 name = row.getString("first_name") + StringUtils.SPACE + row.getString("last_name");
                 break;
             }
-            collector.emit(input, new Values(name, userActivity.getActivityId().toString(),
+            collector.emit(input, new Values(name, userActivity.getActivityId().toString(), userActivity.getUserId().toString(), userActivity.getData(),
                     StringUtils.join(userIdSet, ","), userActivity.getInteractionTime().toString()));
         }
         collector.ack(input);

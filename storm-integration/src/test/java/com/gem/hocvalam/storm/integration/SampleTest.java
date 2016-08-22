@@ -50,7 +50,7 @@ public class SampleTest
 
     public static void main(String args[]) throws UnsupportedEncodingException
     {
-//        post();
+        post();
         final Pattern pattern = Pattern.compile("(?:\\s|\\A)[@]+([A-Za-z0-9-_]+)");
         final Matcher matcher = pattern.matcher("new son test 123 @tulh @abc @f316527a-b34e-4329-91ce-1935977959a5 @51ab2e23-dfee-4cc6-8ea1-6e23fa7a4fa1");
         while (matcher.find())
