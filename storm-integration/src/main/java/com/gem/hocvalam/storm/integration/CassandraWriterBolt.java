@@ -91,20 +91,18 @@ public class CassandraWriterBolt extends BaseRichBolt
         {
             userIdSet.add(matcher.group(1));
         }
-        if (!userIdSet.isEmpty())
+
+        String name = "";
+        PreparedStatement selectStatement = session.prepare("select user_id, first_name, last_name from user where user_id = ?;");
+        BoundStatement bst = new BoundStatement(selectStatement);
+        ResultSet results = session.execute(bst.bind(userActivity.getUserId()));
+        for (Row row : results)
         {
-            String name = "";
-            PreparedStatement selectStatement = session.prepare("select user_id, first_name, last_name from user where user_id = ?;");
-            BoundStatement bst = new BoundStatement(selectStatement);
-            ResultSet results = session.execute(bst.bind(userActivity.getUserId()));
-            for (Row row : results)
-            {
-                name = row.getString("first_name") + StringUtils.SPACE + row.getString("last_name");
-                break;
-            }
-            collector.emit(input, new Values(name, userActivity.getActivityId().toString(), userActivity.getUserId().toString(), userActivity.getData(),
-                    StringUtils.join(userIdSet, ","), userActivity.getInteractionTime().toString()));
+            name = row.getString("first_name") + StringUtils.SPACE + row.getString("last_name");
+            break;
         }
+        collector.emit(input, new Values(name, userActivity.getActivityId().toString(), userActivity.getUserId().toString(), userActivity.getData(),
+                !userIdSet.isEmpty() ? StringUtils.join(userIdSet, ",") : "", userActivity.getInteractionTime().toString()));
         collector.ack(input);
     }
 }
