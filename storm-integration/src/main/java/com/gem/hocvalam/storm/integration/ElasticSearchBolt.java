@@ -7,6 +7,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.apache.storm.shade.org.json.simple.JSONObject;
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -46,7 +47,7 @@ public class ElasticSearchBolt extends BaseRichBolt
                     "    \"post_id\": \"" + tuple.getStringByField("post_id") + "\",\n" +
                     "    \"author_id\": \"" + tuple.getStringByField("author_id") + "\",\n" +
                     "    \"created_date\": \"" + tuple.getStringByField("published_time") + "\",\n" +
-                    "    \"content\": \"" + tuple.getStringByField("content") + "\"\n" +
+                    "    \"content\": \"" + JSONObject.escape(tuple.getStringByField("content")) + "\"\n" +
                     "}");
             request.setEntity(entity);
         }
