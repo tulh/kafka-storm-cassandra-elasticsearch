@@ -26,7 +26,7 @@ public class KafkaSpoutTopology
 
     public StormTopology buildTopology()
     {
-        SpoutConfig kafkaConfig = new SpoutConfig(brokerHosts, KAFKA_TOPIC, "/opt/zookeeper-3.4.8/data", "storm");
+        SpoutConfig kafkaConfig = new SpoutConfig(brokerHosts, KAFKA_TOPIC, "/opt/zookeeper-3.4.8/data", "storm-integration");
         kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
 //        kafkaConfig.startOffsetTime = System.currentTimeMillis();
         TopologyBuilder builder = new TopologyBuilder();
