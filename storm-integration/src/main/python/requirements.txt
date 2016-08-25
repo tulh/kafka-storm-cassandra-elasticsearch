@@ -1,0 +1,5 @@
+cassandra-driver==3.6
+time-uuid==0.1.1
+PyYAML==3.11
+python-dateutil=2.5.3
+requests==2.11.1
