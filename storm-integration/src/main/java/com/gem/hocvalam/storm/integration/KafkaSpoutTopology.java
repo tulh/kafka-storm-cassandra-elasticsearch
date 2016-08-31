@@ -38,7 +38,7 @@ public class KafkaSpoutTopology
         config.put(Config.TOPOLOGY_MESSAGE_TIMEOUT_SECS, 30);
 
         StormTopology stormTopology = kafkaSpoutTopology.buildTopology();
-        if (args != null && args.length > 1)
+        if (args != null && args.length > 0)
         {
             String name = args[0];
             config.put(Config.NIMBUS_HOST, NIMBUS_HOST); //YOUR NIMBUS'S IP
