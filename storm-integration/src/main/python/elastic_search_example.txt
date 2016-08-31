@@ -1,0 +1,72 @@
+- Create index hocvalam-social, type post with analyzer & tokenizer based on ngram
+POST "http://172.16.10.132:9200/hocvalam-social"
+Body
+{
+   "settings": {
+      "analysis": {
+          "filter": {
+            "edgeNGram_filter": {
+              "min_gram": "2",
+              "side": "front",
+              "type": "edgeNGram",
+              "max_gram": "20"
+            }
+          },
+          "analyzer": {
+            "edge_nGram_analyzer": {
+              "filter": [
+                "lowercase",
+                "asciifolding",
+                "edgeNGram_filter"
+              ],
+              "type": "custom",
+              "tokenizer": "edge_ngram_tokenizer"
+            },
+            "whitespace_analyzer": {
+              "filter": [
+                "lowercase",
+                "asciifolding"
+              ],
+              "type": "custom",
+              "tokenizer": "whitespace"
+            }
+          },
+          "tokenizer": {
+            "edge_ngram_tokenizer": {
+              "token_chars": [
+                "letter",
+                "digit"
+              ],
+              "min_gram": "2",
+              "type": "edgeNGram",
+              "max_gram": "10"
+            }
+          }
+        }
+   },
+   "mappings": {
+    "post": {
+		"_all": {
+			"analyzer": "edge_nGram_analyzer",
+			"search_analyzer": "whitespace_analyzer"
+		},
+        "properties": {
+          "author_id": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string",
+			"analyzer": "edge_nGram_analyzer",
+            "search_analyzer": "whitespace_analyzer"
+          },
+          "created_date": {
+            "type": "date",
+            "format": "yyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+          },
+          "post_id": {
+            "type": "string"
+          }
+        }
+      }
+   }
+}
