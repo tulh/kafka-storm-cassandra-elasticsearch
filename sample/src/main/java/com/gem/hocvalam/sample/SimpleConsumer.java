@@ -4,7 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Properties;
 
 /**
@@ -31,7 +31,7 @@ public class SimpleConsumer
                 <>(props);
 
         //Kafka Consumer subscribes list of topics here.
-        consumer.subscribe(Arrays.asList(topicName));
+        consumer.subscribe(Collections.singletonList(topicName));
 
         //print the topic name
         System.out.println("Subscribed to topic " + topicName);

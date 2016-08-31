@@ -13,40 +13,32 @@ import org.apache.storm.topology.TopologyBuilder;
  */
 public class KafkaSpoutTopology
 {
+// ------------------------------ FIELDS ------------------------------
+
     private final static String KAFKA_HOST = "172.16.10.132:2181";
     private final static String NIMBUS_HOST = "172.16.10.127";
     private final static String KAFKA_TOPIC = "test";
 
     private final BrokerHosts brokerHosts;
 
-    public KafkaSpoutTopology(String kafkaZookeeper)
+// --------------------------- CONSTRUCTORS ---------------------------
+
+    private KafkaSpoutTopology(String kafkaZookeeper)
     {
         brokerHosts = new ZkHosts(kafkaZookeeper);
     }
 
-    public StormTopology buildTopology()
-    {
-        SpoutConfig kafkaConfig = new SpoutConfig(brokerHosts, KAFKA_TOPIC, "/opt/zookeeper-3.4.8/data", "storm-integration");
-        kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
-//        kafkaConfig.startOffsetTime = System.currentTimeMillis();
-        TopologyBuilder builder = new TopologyBuilder();
-        builder.setSpout("words", new KafkaSpout(kafkaConfig), 10);
-        builder.setBolt("write-to-cassandra", new CassandraWriterBolt()).shuffleGrouping("words");
-        builder.setBolt("notify", new NotifyBolt()).shuffleGrouping("write-to-cassandra");
-        builder.setBolt("write-to-elasticsearch", new ElasticSearchBolt()).shuffleGrouping("write-to-cassandra");
-        return builder.createTopology();
-    }
+// --------------------------- main() method ---------------------------
 
     public static void main(String[] args) throws Exception
     {
-
         KafkaSpoutTopology kafkaSpoutTopology = new KafkaSpoutTopology(KAFKA_HOST);
         Config config = new Config();
 //        config.put(Config.TOPOLOGY_TRIDENT_BATCH_EMIT_INTERVAL_MILLIS, 2000);
         config.put(Config.TOPOLOGY_MESSAGE_TIMEOUT_SECS, 30);
 
         StormTopology stormTopology = kafkaSpoutTopology.buildTopology();
-        if (args != null && args.length > 1)
+        if (args != null && args.length > 0)
         {
             String name = args[0];
             config.put(Config.NIMBUS_HOST, NIMBUS_HOST); //YOUR NIMBUS'S IP
@@ -62,5 +54,18 @@ public class KafkaSpoutTopology
             LocalCluster cluster = new LocalCluster();
             cluster.submitTopology("kafka-storm-cassandra", config, stormTopology);
         }
+    }
+
+    private StormTopology buildTopology()
+    {
+        SpoutConfig kafkaConfig = new SpoutConfig(brokerHosts, KAFKA_TOPIC, "/opt/zookeeper-3.4.8/data", "storm-integration");
+        kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
+//        kafkaConfig.startOffsetTime = System.currentTimeMillis();
+        TopologyBuilder builder = new TopologyBuilder();
+        builder.setSpout("words", new KafkaSpout(kafkaConfig), 10);
+        builder.setBolt("write-to-cassandra", new CassandraWriterBolt()).shuffleGrouping("words");
+        builder.setBolt("notify", new NotifyBolt()).shuffleGrouping("write-to-cassandra");
+        builder.setBolt("write-to-elasticsearch", new ElasticSearchBolt()).shuffleGrouping("write-to-cassandra");
+        return builder.createTopology();
     }
 }

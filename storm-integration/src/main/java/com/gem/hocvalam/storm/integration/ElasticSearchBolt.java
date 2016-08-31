@@ -23,10 +23,17 @@ import java.util.Map;
 /**
  * Created by tulh on 22/08/2016.
  */
-public class ElasticSearchBolt extends BaseRichBolt
+class ElasticSearchBolt extends BaseRichBolt
 {
-    public static final Logger LOG = LoggerFactory.getLogger(BaseRichBolt.class);
+// ------------------------------ FIELDS ------------------------------
+
+    private static final Logger LOG = LoggerFactory.getLogger(BaseRichBolt.class);
     private OutputCollector collector;
+
+// ------------------------ INTERFACE METHODS ------------------------
+
+
+// --------------------- Interface IBolt ---------------------
 
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector)
@@ -39,7 +46,7 @@ public class ElasticSearchBolt extends BaseRichBolt
     {
         String postId = tuple.getStringByField("post_id");
         HttpPost request = new HttpPost("http://172.16.10.132:9200/hocvalam-social/post/" + postId);
-        request.addHeader("Content-Type", "application/json");
+        request.addHeader("Content-Type", "application/json;charset=UTF-8");
 
         try
         {
@@ -48,7 +55,7 @@ public class ElasticSearchBolt extends BaseRichBolt
                     "    \"author_id\": \"" + tuple.getStringByField("author_id") + "\",\n" +
                     "    \"created_date\": \"" + tuple.getStringByField("published_time") + "\",\n" +
                     "    \"content\": \"" + JSONObject.escape(tuple.getStringByField("content")) + "\"\n" +
-                    "}");
+                    "}", "UTF-8");
             request.setEntity(entity);
         }
         catch (UnsupportedEncodingException e)
@@ -68,8 +75,10 @@ public class ElasticSearchBolt extends BaseRichBolt
         {
             e.printStackTrace();
         }
-
     }
+
+// --------------------- Interface IComponent ---------------------
+
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer)

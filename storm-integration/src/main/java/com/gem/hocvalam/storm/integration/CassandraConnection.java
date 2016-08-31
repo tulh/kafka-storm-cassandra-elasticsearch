@@ -5,25 +5,23 @@ import com.datastax.driver.core.*;
 /**
  * Created by tulh on 08/08/2016.
  */
-public class CassandraConnection
+class CassandraConnection
 {
-    private Cluster cluster;
-    private Session session;
+// ------------------------------ FIELDS ------------------------------
 
-    private int maxRequestPerConnection = 128;
-    private int maxConnectionLocalPerHost = 8;
-    private int maxConnectionRemotePerHost = 2;
-    private int coreConnectionLocalPerHost = 2;
-    private int coreConnectionRemotePerHost = 1;
+    private final Cluster cluster;
+    private final Session session;
 
-    public Session getSession()
-    {
-        return this.session;
-    }
+    private final int maxRequestPerConnection = 128;
+    private final int maxConnectionLocalPerHost = 8;
+    private final int maxConnectionRemotePerHost = 2;
+    private final int coreConnectionLocalPerHost = 2;
+    private final int coreConnectionRemotePerHost = 1;
+
+// --------------------------- CONSTRUCTORS ---------------------------
 
     public CassandraConnection(String node, String keyspace, String username, String password)
     {
-
         PoolingOptions pools = new PoolingOptions();
         pools.setMaxRequestsPerConnection(HostDistance.LOCAL, maxRequestPerConnection);
         pools.setCoreConnectionsPerHost(HostDistance.LOCAL, coreConnectionLocalPerHost);
@@ -48,6 +46,15 @@ public class CassandraConnection
 //        }
         session = cluster.connect(keyspace);
     }
+
+// --------------------- GETTER / SETTER METHODS ---------------------
+
+    public Session getSession()
+    {
+        return this.session;
+    }
+
+// -------------------------- OTHER METHODS --------------------------
 
     public void close()
     {

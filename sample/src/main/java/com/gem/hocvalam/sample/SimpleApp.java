@@ -17,21 +17,9 @@ public class SimpleApp
         JavaSparkContext sc = new JavaSparkContext(conf);
         JavaRDD<String> logData = sc.textFile(logFile).cache();
 
-        long numAs = logData.filter(new Function<String, Boolean>()
-        {
-            public Boolean call(String v1) throws Exception
-            {
-                return v1.contains("a");
-            }
-        }).count();
+        long numAs = logData.filter((Function<String, Boolean>) v1 -> v1.contains("a")).count();
 
-        long numBs = logData.filter(new Function<String, Boolean>()
-        {
-            public Boolean call(String v1) throws Exception
-            {
-                return v1.contains("b");
-            }
-        }).count();
+        long numBs = logData.filter((Function<String, Boolean>) v1 -> v1.contains("b")).count();
 
         System.out.printf("Lines with a: %s b: %s\n", numAs, numBs);
     }

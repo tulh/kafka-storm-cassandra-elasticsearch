@@ -26,10 +26,18 @@ import java.util.Map;
 /**
  * Created by tulh on 08/08/2016.
  */
-public class NotifyBolt extends BaseRichBolt
+class NotifyBolt extends BaseRichBolt
 {
-    public static final Logger LOG = LoggerFactory.getLogger(NotifyBolt.class);
+// ------------------------------ FIELDS ------------------------------
+
+    private static final Logger LOG = LoggerFactory.getLogger(NotifyBolt.class);
     private OutputCollector collector;
+
+// ------------------------ INTERFACE METHODS ------------------------
+
+
+// --------------------- Interface IBolt ---------------------
+
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector)
     {
@@ -71,6 +79,9 @@ public class NotifyBolt extends BaseRichBolt
             e.printStackTrace();
         }
     }
+
+// --------------------- Interface IComponent ---------------------
+
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer)

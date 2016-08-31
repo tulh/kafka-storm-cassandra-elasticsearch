@@ -7,19 +7,23 @@ import java.util.UUID;
  */
 public class IObject
 {
+// ------------------------------ FIELDS ------------------------------
+
     private String type;
     private UUID id;
     private String content;
     private Long published;
 
-    public String getType()
+// --------------------- GETTER / SETTER METHODS ---------------------
+
+    public String getContent()
     {
-        return type;
+        return content;
     }
 
-    public void setType(String type)
+    public void setContent(String content)
     {
-        this.type = type;
+        this.content = content;
     }
 
     public UUID getId()
@@ -32,16 +36,6 @@ public class IObject
         this.id = id;
     }
 
-    public String getContent()
-    {
-        return content;
-    }
-
-    public void setContent(String content)
-    {
-        this.content = content;
-    }
-
     public Long getPublished()
     {
         return published;
@@ -50,5 +44,15 @@ public class IObject
     public void setPublished(Long published)
     {
         this.published = published;
+    }
+
+    public String getType()
+    {
+        return type;
+    }
+
+    public void setType(String type)
+    {
+        this.type = type;
     }
 }
