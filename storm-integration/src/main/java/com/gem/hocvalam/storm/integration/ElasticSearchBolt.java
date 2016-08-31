@@ -23,10 +23,17 @@ import java.util.Map;
 /**
  * Created by tulh on 22/08/2016.
  */
-public class ElasticSearchBolt extends BaseRichBolt
+class ElasticSearchBolt extends BaseRichBolt
 {
-    public static final Logger LOG = LoggerFactory.getLogger(BaseRichBolt.class);
+// ------------------------------ FIELDS ------------------------------
+
+    private static final Logger LOG = LoggerFactory.getLogger(BaseRichBolt.class);
     private OutputCollector collector;
+
+// ------------------------ INTERFACE METHODS ------------------------
+
+
+// --------------------- Interface IBolt ---------------------
 
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector)
@@ -68,8 +75,10 @@ public class ElasticSearchBolt extends BaseRichBolt
         {
             e.printStackTrace();
         }
-
     }
+
+// --------------------- Interface IComponent ---------------------
+
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer)

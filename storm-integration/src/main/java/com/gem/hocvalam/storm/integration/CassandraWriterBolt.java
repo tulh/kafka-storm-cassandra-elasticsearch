@@ -25,9 +25,11 @@ import java.util.regex.Pattern;
 /**
  * Created by tulh on 08/08/2016.
  */
-public class CassandraWriterBolt extends BaseRichBolt
+class CassandraWriterBolt extends BaseRichBolt
 {
-    public static final Logger LOG = LoggerFactory.getLogger(CassandraWriterBolt.class);
+// ------------------------------ FIELDS ------------------------------
+
+    private static final Logger LOG = LoggerFactory.getLogger(CassandraWriterBolt.class);
 
     private final static String USERNAME = "cassandra";
     private final static String PASSWORD = "cassandra";
@@ -37,16 +39,15 @@ public class CassandraWriterBolt extends BaseRichBolt
     private Session session;
     private OutputCollector collector;
 
+// ------------------------ INTERFACE METHODS ------------------------
+
+
+// --------------------- Interface IBolt ---------------------
+
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector)
     {
         this.collector = outputCollector;
-    }
-
-    @Override
-    public void declareOutputFields(OutputFieldsDeclarer declarer)
-    {
-        declarer.declare(new Fields("name", "post_id", "author_id", "content", "channel_ids", "published_time"));
     }
 
     @Override
@@ -69,7 +70,18 @@ public class CassandraWriterBolt extends BaseRichBolt
         }
     }
 
-    public void boundCQLStatement(Tuple input, UserActivity userActivity)
+// --------------------- Interface IComponent ---------------------
+
+
+    @Override
+    public void declareOutputFields(OutputFieldsDeclarer declarer)
+    {
+        declarer.declare(new Fields("name", "post_id", "author_id", "content", "channel_ids", "published_time"));
+    }
+
+// -------------------------- OTHER METHODS --------------------------
+
+    private void boundCQLStatement(Tuple input, UserActivity userActivity)
     {
         session.execute("use hocvalam;");
         PreparedStatement statement = session.prepare(

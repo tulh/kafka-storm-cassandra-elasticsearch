@@ -7,7 +7,11 @@ import java.util.UUID;
  */
 public class Actor
 {
+// ------------------------------ FIELDS ------------------------------
+
     private UUID id;
+
+// --------------------- GETTER / SETTER METHODS ---------------------
 
     public UUID getId()
     {

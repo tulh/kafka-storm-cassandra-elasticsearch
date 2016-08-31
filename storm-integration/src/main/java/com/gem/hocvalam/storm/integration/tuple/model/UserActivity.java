@@ -9,12 +9,16 @@ import java.util.UUID;
  */
 public class UserActivity
 {
+// ------------------------------ FIELDS ------------------------------
+
     private UUID userId;
     private String interactionDate;
     private Long interactionTime;
     private UUID activityId;
     private String activityType;
     private String data;
+
+// --------------------------- CONSTRUCTORS ---------------------------
 
     public UserActivity()
     {
@@ -33,35 +37,7 @@ public class UserActivity
         this.data = post.getObject().getContent();
     }
 
-    public UUID getUserId()
-    {
-        return userId;
-    }
-
-    public void setUserId(UUID userId)
-    {
-        this.userId = userId;
-    }
-
-    public String getInteractionDate()
-    {
-        return interactionDate;
-    }
-
-    public void setInteractionDate(String interactionDate)
-    {
-        this.interactionDate = interactionDate;
-    }
-
-    public Long getInteractionTime()
-    {
-        return interactionTime;
-    }
-
-    public void setInteractionTime(Long interactionTime)
-    {
-        this.interactionTime = interactionTime;
-    }
+// --------------------- GETTER / SETTER METHODS ---------------------
 
     public UUID getActivityId()
     {
@@ -91,5 +67,35 @@ public class UserActivity
     public void setData(String data)
     {
         this.data = data;
+    }
+
+    public String getInteractionDate()
+    {
+        return interactionDate;
+    }
+
+    public void setInteractionDate(String interactionDate)
+    {
+        this.interactionDate = interactionDate;
+    }
+
+    public Long getInteractionTime()
+    {
+        return interactionTime;
+    }
+
+    public void setInteractionTime(Long interactionTime)
+    {
+        this.interactionTime = interactionTime;
+    }
+
+    public UUID getUserId()
+    {
+        return userId;
+    }
+
+    public void setUserId(UUID userId)
+    {
+        this.userId = userId;
     }
 }

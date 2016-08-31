@@ -11,19 +11,13 @@ import java.util.Date;
  */
 public class Post
 {
+// ------------------------------ FIELDS ------------------------------
+
     private String type;
     private Actor actor;
     private IObject object;
 
-    public String getType()
-    {
-        return type;
-    }
-
-    public void setType(String type)
-    {
-        this.type = type;
-    }
+// --------------------- GETTER / SETTER METHODS ---------------------
 
     public Actor getActor()
     {
@@ -44,6 +38,18 @@ public class Post
     {
         this.object = object;
     }
+
+    public String getType()
+    {
+        return type;
+    }
+
+    public void setType(String type)
+    {
+        this.type = type;
+    }
+
+// --------------------------- main() method ---------------------------
 
     public static void main(String args[])
     {
