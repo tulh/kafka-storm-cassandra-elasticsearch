@@ -16,7 +16,7 @@ public class CassandraClient
     private Cluster cluster;
     private Session session;
 
-    public void connect(String node)
+    private void connect(String node)
     {
         cluster = Cluster.builder()
                 .addContactPoint(node)
@@ -54,7 +54,7 @@ public class CassandraClient
                 ");");
     }
 
-    public void loadData()
+    private void loadData()
     {
         session.execute(
                 "INSERT INTO simplex.songs (id, title, album, artist, tags) " +
@@ -94,19 +94,19 @@ public class CassandraClient
                         ");");
     }
 
-    public void deleteData()
+    private void deleteData()
     {
         session.execute("delete from simplex.songs where id=126716f7-2e54-4715-9f00-91dcbea6cf50;");
     }
 
-    public void boundStatement()
+    private void boundStatement()
     {
         PreparedStatement statement = session.prepare(
                 "INSERT INTO simplex.songs " +
                         "(id, title, album, artist, tags) " +
                         "VALUES (?, ?, ?, ?, ?);");
         BoundStatement boundStatement = new BoundStatement(statement);
-        Set<String> tags = new HashSet<String>();
+        Set<String> tags = new HashSet<>();
         tags.add("jazz");
         tags.add("2013");
         session.execute(boundStatement.bind(
@@ -129,7 +129,7 @@ public class CassandraClient
                 "Joséphine Baker") );
     }
 
-    public void querySchema()
+    private void querySchema()
     {
         ResultSet results = session.execute("SELECT * FROM simplex.playlists; ");
         System.out.println(String.format("%-30s\t%-20s\t%-20s\n%s", "title", "album", "artist",
@@ -149,7 +149,7 @@ public class CassandraClient
         System.out.println();
     }
 
-    public void close()
+    private void close()
     {
         session.close();
         cluster.close();
