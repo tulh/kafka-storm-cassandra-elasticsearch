@@ -24,4 +24,4 @@ This project contains source code of the integration between apache kafka, storm
 * storm-integration and other modules contains the business and being used to create jar files
 
 ### Who do I talk to? ###
-tulh@gemvietnam.com
+tuleha52@gmail.com
